@@ -1,0 +1,36 @@
+{% include 'decoration.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div style="display:flex;flex-direction:column;align-items:center;">
+<h2>Login Form</h2>
+
+<div style="display:flex;flex-direction:column;align-items:center;">
+    {% for message in messages %}
+    <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+     {{message}}
+  </div>
+    {% endfor %}
+
+<form action="{% url 'login' %}" method="post">
+  {% csrf_token %}
+  <div class="container">
+    <label ><b>Username</b></label>
+    <input type="text" name="uname" placeholder="Enter Username"  required>
+
+    <label><b>Password</b></label>
+    <input type="password" name="pwd" placeholder="Enter Password"  required>
+
+    <button type="submit">Login</button>
+
+
+  </div>
+</form>
+<p>New here? <a href="{% url 'signup' %}" style="color:dodgerblue">Registar</a>.</p>
+</div>
+</body>
+</html>

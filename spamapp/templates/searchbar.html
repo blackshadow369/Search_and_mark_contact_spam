@@ -1,0 +1,53 @@
+{% include 'decoration.html' %}
+<div style="display:flex;flex-direction:column;align-items:center;">
+    {% for message in messages %}
+    <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+     {{message}}
+  </div>
+    {% endfor %}
+
+<h1>Welcome to spam searcher </h1>
+    
+<form action="{% url 'searchbar' %}" method="post">
+    {% csrf_token %}
+    <div class="container">
+      <input type="text" name="value" placeholder="Search by number or name" >
+      <button type="submit">Login</button>
+    </div>
+  </form>
+  <div>
+    <!--Loop to get the matches values-->
+    {% for variable in data %}
+        {{variable.Information_name}}  {{variable.Information_phone}}
+        <!--If the user if anonymous :display function to add it -->
+        {% if variable.Information_name == "Anonymous" %}
+        <a href="/addname/{{variable.id}}">I know this guy name </a>
+        {% endif %}
+        <!--if the email is available display it -->
+        {% if variable.Information_email %}
+            {{variable.Information_email}}
+        {% endif %}
+        <br>
+        <!--if the spam number is not zero i.e the number is a spammer display it -->
+        {% if variable.Information_spam != 0 %}
+        {{variable.Information_spam}} people marked this as scam
+        {% endif %}
+
+        <!--Spammer counter incrementer-->
+        <a href="/incspam/{{variable.id}}">Spammer++</a>
+    {%empty%}
+        {% if value %}
+            <h2>No result of related "{{value }}"</h2>
+            <!--If the number is 10 digits then show user function to add it to database-->
+            {% if value|length == 10 %}
+            <a href="/addnumber/{{value}}">Want to add this nubmer to database</a>
+            <br>
+        {% endif %}
+    {% else %}
+        <h3>No data to show right now </h3>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+<a href="{% url 'login' %}">Logout</a>

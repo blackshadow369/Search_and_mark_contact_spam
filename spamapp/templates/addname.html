@@ -1,0 +1,9 @@
+{% include 'decoration.html' %}
+<form action="/addname/{{id}}" method="post">
+    {% csrf_token %}
+    <div class="container">
+      <input type="text" name="name" placeholder="Input the name " >
+      <button type="submit">Submit name to the database</button>
+    </div>
+  </form>
+  <div>
