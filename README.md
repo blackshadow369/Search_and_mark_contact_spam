@@ -9,7 +9,7 @@ Login Implimentation:
 - user can increment spammer count of number
 - user not able to directly jump to main url without login 
 - passwords are stored in database in hashed form
-- functionality to registar a user
+- functionality to register a user
 - functionality to login a user
 - functionality to logout a user
 
